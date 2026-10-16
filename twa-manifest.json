@@ -1,0 +1,32 @@
+{
+  "packageId": "com.omniagent.workspace",
+  "host": "ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app",
+  "name": "OmniAgent AI Workspace",
+  "launcherName": "OmniAgent",
+  "display": "standalone",
+  "themeColor": "#090D16",
+  "themeColorDark": "#090D16",
+  "navigationColor": "#090D16",
+  "navigationColorDark": "#090D16",
+  "backgroundColor": "#090D16",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app/pwa-512x512.png",
+  "maskableIconUrl": "https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app/pwa-maskable-512x512.png",
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  }
+}

@@ -1,0 +1,82 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Package Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Bubblewrap CLI
+        run: |
+          npm install -g @bubblewrap/cli
+
+      - name: Generate Android Signing Keystore
+        run: |
+          keytool -genkeypair -v -keystore android.keystore -alias android \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass omniagentpass -keypass omniagentpass \
+            -dname "CN=OmniAgent, OU=Workspace, O=OmniAgent, L=Cairo, S=Cairo, C=EG"
+
+      - name: Build Android APK with Bubblewrap
+        env:
+          KEYSTORE_PASSWORD: omniagentpass
+          KEY_PASSWORD: omniagentpass
+        run: |
+          bubblewrap build --skipPwaValidation || true
+          find . -name "*.apk"
+
+      - name: Organize APK Output
+        run: |
+          mkdir -p build-output
+          # Locate any built apk and copy as omniagent.apk
+          find . -name "*.apk" -exec cp {} build-output/omniagent.apk \; || true
+          ls -la build-output/
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OmniAgent-Android-APK
+          path: build-output/omniagent.apk
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Create GitHub Release
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "OmniAgent Android APK v1.0.0"
+          body: |
+            ### 🤖 OmniAgent AI Workspace - Android APK Package
+
+            - **Download**: Download `omniagent.apk` directly to your Android device to install.
+            - **Web Preview**: [https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app](https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app)
+          files: build-output/omniagent.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

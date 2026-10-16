@@ -1,0 +1,6 @@
+{
+  "name": "OmniAgent AI Workspace",
+  "description": "Autonomous multi-tool AI Agent with real-time reasoning traces, web search grounding, live code and math execution, and bilingual Arabic/English interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
