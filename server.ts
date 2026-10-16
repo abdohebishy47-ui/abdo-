@@ -18,6 +18,19 @@ async function startServer() {
   const port = Number(process.env.PORT) || 3000;
 
   app.use(express.json({ limit: '10mb' }));
+  app.use(express.static(path.resolve(__dirname, 'public')));
+
+  // Direct APK download endpoint for mobile installation
+  app.get(['/download/apk', '/omniagent.apk'], (_req, res) => {
+    const apkPath = path.resolve(__dirname, 'public', 'omniagent.apk');
+    res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+    res.setHeader('Content-Disposition', 'attachment; filename="omniagent.apk"');
+    res.sendFile(apkPath, (err) => {
+      if (err && !res.headersSent) {
+        res.status(404).send('APK file currently compiling or not found');
+      }
+    });
+  });
 
   // Health check endpoint
   app.get('/api/health', (_req, res) => {

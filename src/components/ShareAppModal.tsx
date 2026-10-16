@@ -240,26 +240,42 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
                   </ol>
                 </div>
 
-                {/* Direct Built APK from GitHub Release */}
-                <div className="p-3.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <div className="space-y-0.5">
-                    <div className="text-xs font-semibold text-emerald-300 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      <span>{isArabic ? 'ملف الـ APK جاهز للتحميل المباشر (v1.0.0)' : 'Compiled APK Ready for Direct Download (v1.0.0)'}</span>
+                {/* Direct Built APK Download Banner */}
+                <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-950/60 to-slate-900 border border-emerald-500/40 flex flex-col gap-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="space-y-1">
+                      <div className="text-sm font-semibold text-emerald-300 flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{isArabic ? 'ملف الـ APK جاهز للتحميل والتثبيت الفوري (5.5 MB)' : 'Compiled APK Ready for Direct Download (5.5 MB)'}</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        {isArabic
+                          ? 'تم تجميع وتوليد ملف APK للأندرويد بنجاح. يمكنك تحميله مباشرة إلى هاتفك وتثبيته فوراً بدون الحاجة لأي خطوات معقدة.'
+                          : 'Android APK was successfully compiled and ready for instant installation on any Android phone.'}
+                      </p>
                     </div>
-                    <p className="text-[11px] text-slate-300">
-                      {isArabic ? 'تم بناؤه بنجاح عبر GitHub Actions وجاهز للتثبيت على هاتفك' : 'Built successfully via GitHub Actions, ready to install on Android'}
-                    </p>
                   </div>
-                  <a
-                    href={githubApkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow transition-all whitespace-nowrap"
-                  >
-                    <span>{isArabic ? 'تحميل ملف APK الآن' : 'Download APK Now'}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    <a
+                      href="/omniagent.apk"
+                      download="omniagent.apk"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>{isArabic ? 'تحميل ملف APK مباشرة للموبايل' : 'Download APK Directly'}</span>
+                    </a>
+
+                    <a
+                      href="https://github.com/abdohebishy47-ui/abdo-/releases"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors"
+                    >
+                      <span>{isArabic ? 'عرض الإصدار على GitHub' : 'View on GitHub Releases'}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
 
                 {/* Action Links */}
