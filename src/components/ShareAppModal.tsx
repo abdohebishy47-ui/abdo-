@@ -22,8 +22,8 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
 
   const isArabic = language === 'ar';
   
-  // Public Shared App URL
-  const appUrl = 'https://ais-pre-6kehfg6x37cpx47wzqqvpl-145828402206.europe-west2.run.app';
+  // Active App URL (dynamically uses the current running domain)
+  const appUrl = typeof window !== 'undefined' ? window.location.origin : '';
   
   // WhatsApp Share URL
   const whatsappText = encodeURIComponent(
