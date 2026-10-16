@@ -36,6 +36,10 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
   // PWABuilder APK Generator URL
   const pwaBuilderUrl = `https://www.pwabuilder.com/reportcard?site=${encodeURIComponent(appUrl)}`;
 
+  // Direct Built APK from GitHub Release
+  const githubApkUrl = 'https://github.com/abdohebishy47-ui/abdo-/releases/download/v1.0.0/omniagent.apk';
+  const githubReleasesUrl = 'https://github.com/abdohebishy47-ui/abdo-/releases/tag/v1.0.0';
+
   // QR Code URL
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(appUrl)}&bgcolor=0d1424&color=38bdf8`;
 
@@ -236,7 +240,29 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
                   </ol>
                 </div>
 
-                {/* Direct Action Link */}
+                {/* Direct Built APK from GitHub Release */}
+                <div className="p-3.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="space-y-0.5">
+                    <div className="text-xs font-semibold text-emerald-300 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <span>{isArabic ? 'ملف الـ APK جاهز للتحميل المباشر (v1.0.0)' : 'Compiled APK Ready for Direct Download (v1.0.0)'}</span>
+                    </div>
+                    <p className="text-[11px] text-slate-300">
+                      {isArabic ? 'تم بناؤه بنجاح عبر GitHub Actions وجاهز للتثبيت على هاتفك' : 'Built successfully via GitHub Actions, ready to install on Android'}
+                    </p>
+                  </div>
+                  <a
+                    href={githubApkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow transition-all whitespace-nowrap"
+                  >
+                    <span>{isArabic ? 'تحميل ملف APK الآن' : 'Download APK Now'}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Action Links */}
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <a
                     href={pwaBuilderUrl}
