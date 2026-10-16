@@ -127,6 +127,39 @@ function safeRunCode(code: string): { output: string; returnedValue?: any; error
   }
 }
 
+async function callModelWithRetry(ai: GoogleGenAI, params: any, maxRetries = 3) {
+  let lastError: any = null;
+  const candidateModels = ['gemini-3.8-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest'];
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    for (const model of candidateModels) {
+      try {
+        const response = await ai.models.generateContent({
+          ...params,
+          model
+        });
+        return response;
+      } catch (err: any) {
+        lastError = err;
+        const errMsg = String(err?.message || '');
+        const isTemporary =
+          errMsg.includes('429') ||
+          errMsg.includes('503') ||
+          errMsg.includes('RESOURCE_EXHAUSTED') ||
+          errMsg.includes('UNAVAILABLE') ||
+          errMsg.includes('high demand');
+
+        if (isTemporary) {
+          await new Promise((res) => setTimeout(res, 800 * (attempt + 1)));
+          continue;
+        }
+        throw err;
+      }
+    }
+  }
+  throw lastError;
+}
+
 export async function runAgent({
   userPrompt,
   history = [],
@@ -231,8 +264,7 @@ Your mandate is to tackle the user's objective systematically:
     });
 
     // Run first turn with tools and tool hybrid mode
-    let response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+    let response = await callModelWithRetry(ai, {
       contents,
       config: {
         systemInstruction,
@@ -398,8 +430,7 @@ Your mandate is to tackle the user's objective systematically:
       });
 
       // Next iteration
-      currentResponse = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+      currentResponse = await callModelWithRetry(ai, {
         contents,
         config: {
           systemInstruction,
