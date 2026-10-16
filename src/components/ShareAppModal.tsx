@@ -258,21 +258,31 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
 
                   <div className="flex flex-wrap items-center gap-2 pt-1">
                     <a
-                      href="/omniagent.apk"
-                      download="omniagent.apk"
+                      href="https://github.com/abdohebishy47-ui/abdo-/releases/download/v1.0.0/omniagent.apk"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
                     >
                       <Download className="w-4 h-4" />
-                      <span>{isArabic ? 'تحميل ملف APK مباشرة للموبايل' : 'Download APK Directly'}</span>
+                      <span>{isArabic ? 'تحميل مباشر لملف APK (رسمي من GitHub)' : 'Direct Download APK (GitHub)'}</span>
+                    </a>
+
+                    <a
+                      href="/omniagent.apk"
+                      download="omniagent.apk"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>{isArabic ? 'سيرفر بديل' : 'Mirror Server'}</span>
                     </a>
 
                     <a
                       href="https://github.com/abdohebishy47-ui/abdo-/releases"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors"
                     >
-                      <span>{isArabic ? 'عرض الإصدار على GitHub' : 'View on GitHub Releases'}</span>
+                      <span>{isArabic ? 'صفحة الإصدار' : 'Releases Page'}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
