@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, Share2, ExternalLink, QrCode, Smartphone, Send, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { X, Copy, Check, Share2, ExternalLink, QrCode, Smartphone, Send, ArrowUpRight, CheckCircle2, Download } from 'lucide-react';
 import { Language } from '../types/agent';
 
 interface ShareAppModalProps {
