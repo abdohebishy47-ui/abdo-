@@ -1,5 +1,6 @@
 import express from 'express';
 import http from 'node:http';
+import fs from 'node:fs';
 import { createServer as createViteServer } from 'vite';
 import dotenv from 'dotenv';
 import path from 'node:path';
@@ -83,8 +84,10 @@ async function startServer() {
   });
 
   // Vite middleware in dev or static files in production
-  if (process.env.NODE_ENV === 'production') {
-    const distPath = path.resolve(__dirname, 'dist');
+  const distPath = path.resolve(__dirname, 'dist');
+  const isProd = process.env.NODE_ENV === 'production' || (fs.existsSync(path.resolve(distPath, 'index.html')) && process.env.NODE_ENV !== 'development');
+
+  if (isProd) {
     app.use(express.static(distPath));
     app.get('*', (_req, res) => {
       res.sendFile(path.resolve(distPath, 'index.html'));

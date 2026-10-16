@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type, FunctionDeclaration } from '@google/genai';
+import { GoogleGenAI, Type, type FunctionDeclaration } from '@google/genai';
 import vm from 'node:vm';
 
 export interface AgentStepEvent {
